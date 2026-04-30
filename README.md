@@ -8,7 +8,7 @@ English | [简体中文](README_zh_CN.md)
 
 ## Features
 
-- Upload pasted screenshots or clipboard images to Aliyun OSS
+- Upload pasted screenshots, clipboard images, or dropped local images to Aliyun OSS
 - Insert Markdown image links after upload succeeds
 - Support custom OSS object path prefix
 - Built-in guide link for finding OSS parameters
@@ -19,7 +19,7 @@ English | [简体中文](README_zh_CN.md)
 1. Install and enable the plugin.
 2. Open plugin settings and fill in `AccessKeyId`, `AccessKeySecret`, `Endpoint`, `Bucket`, and `Path`.
 3. Configure CORS for your OSS bucket.
-4. Paste a screenshot or clipboard image into the SiYuan editor.
+4. Paste a screenshot or clipboard image into the SiYuan editor, or drop a local image into the document.
 5. The plugin uploads the image and inserts a Markdown image link:
 
 ```markdown

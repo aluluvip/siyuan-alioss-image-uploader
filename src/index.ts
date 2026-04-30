@@ -30,6 +30,7 @@ const DEFAULT_SETTINGS: OssSettings = {
 export default class AliOssImageUploader extends Plugin {
     private settings: OssSettings = {...DEFAULT_SETTINGS};
     private pasteHandler = this.handlePaste.bind(this) as EventListener;
+    private dropHandler = this.handleDrop.bind(this) as EventListener;
     private isUploading = false;
 
     async onload() {
@@ -44,10 +45,12 @@ export default class AliOssImageUploader extends Plugin {
 
         this.setting = this.buildSettingPanel();
         window.addEventListener("paste", this.pasteHandler, true);
+        window.addEventListener("drop", this.dropHandler, true);
     }
 
     onunload() {
         window.removeEventListener("paste", this.pasteHandler, true);
+        window.removeEventListener("drop", this.dropHandler, true);
     }
 
     private buildSettingPanel() {
@@ -100,38 +103,27 @@ export default class AliOssImageUploader extends Plugin {
         if (this.isUploading) {
             return;
         }
-        const files = this.getImageFiles(clipboardEvent);
-        if (files.length === 0 || !this.hasRequiredSettings()) {
+        const files = this.getClipboardImageFiles(clipboardEvent);
+        if (files.length === 0) {
             return;
         }
 
         const protyle = this.getActiveProtyle();
-        if (!protyle) {
+        await this.uploadAndInsert(files, protyle, event);
+    }
+
+    private async handleDrop(event: Event) {
+        const dragEvent = event as DragEvent;
+        if (this.isUploading) {
+            return;
+        }
+        const files = this.getDroppedImageFiles(dragEvent);
+        if (files.length === 0) {
             return;
         }
 
-        event.preventDefault();
-        event.stopPropagation();
-        this.isUploading = true;
-
-        try {
-            showMessage(this.i18n.uploading.replace("${count}", String(files.length)), 4000);
-            const results: UploadResult[] = [];
-            for (const file of files) {
-                results.push(await this.uploadFile(file));
-            }
-            const markdown = results.map((result) => {
-                const alt = this.escapeMarkdownAlt(result.filename);
-                return `![${alt}](${result.url})`;
-            }).join("\n");
-            protyle.insert(markdown);
-            showMessage(this.i18n.uploadSuccess.replace("${count}", String(results.length)));
-        } catch (error) {
-            console.error("[siyuan-alioss-image-uploader] upload failed", error);
-            showMessage(`${this.i18n.uploadFailed}: ${this.getErrorMessage(error)}`, 7000, "error");
-        } finally {
-            this.isUploading = false;
-        }
+        const protyle = this.getProtyleFromEventTarget(dragEvent.target) ?? this.getActiveProtyle();
+        await this.uploadAndInsert(files, protyle, event);
     }
 
     private async uploadFile(file: File): Promise<UploadResult> {
@@ -156,12 +148,57 @@ export default class AliOssImageUploader extends Plugin {
         };
     }
 
-    private getImageFiles(event: ClipboardEvent) {
+    private getClipboardImageFiles(event: ClipboardEvent) {
         const items = Array.from(event.clipboardData?.items ?? []);
         return items
             .filter((item) => item.kind === "file" && item.type.startsWith("image/"))
             .map((item) => item.getAsFile())
             .filter((file): file is File => Boolean(file));
+    }
+
+    private getDroppedImageFiles(event: DragEvent) {
+        const files = Array.from(event.dataTransfer?.files ?? []);
+        if (files.length > 0) {
+            return files.filter((file) => file.type.startsWith("image/"));
+        }
+
+        const items = Array.from(event.dataTransfer?.items ?? []);
+        return items
+            .filter((item) => item.kind === "file" && item.type.startsWith("image/"))
+            .map((item) => item.getAsFile())
+            .filter((file): file is File => Boolean(file));
+    }
+
+    private async uploadAndInsert(files: File[], protyle: Protyle | undefined, event: Event) {
+        if (!protyle || !this.hasRequiredSettings()) {
+            return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        this.isUploading = true;
+
+        try {
+            showMessage(this.i18n.uploading.replace("${count}", String(files.length)), 4000);
+            const results: UploadResult[] = [];
+            for (const file of files) {
+                results.push(await this.uploadFile(file));
+            }
+            protyle.insert(this.buildMarkdown(results));
+            showMessage(this.i18n.uploadSuccess.replace("${count}", String(results.length)));
+        } catch (error) {
+            console.error("[siyuan-alioss-image-uploader] upload failed", error);
+            showMessage(`${this.i18n.uploadFailed}: ${this.getErrorMessage(error)}`, 7000, "error");
+        } finally {
+            this.isUploading = false;
+        }
+    }
+
+    private buildMarkdown(results: UploadResult[]) {
+        return results.map((result) => {
+            const alt = this.escapeMarkdownAlt(result.filename);
+            return `![${alt}](${result.url})`;
+        }).join("\n");
     }
 
     private getActiveProtyle(): Protyle | undefined {
@@ -172,6 +209,15 @@ export default class AliOssImageUploader extends Plugin {
             return activeElement && wysiwygElement?.contains(activeElement);
         });
         return activeEditor ?? editors[0];
+    }
+
+    private getProtyleFromEventTarget(target: EventTarget | null): Protyle | undefined {
+        if (!(target instanceof Node)) {
+            return undefined;
+        }
+
+        const editors = getAllEditor() as unknown as Protyle[];
+        return editors.find((editor) => editor.protyle?.wysiwyg?.element?.contains(target));
     }
 
     private buildObjectKey(file: File) {

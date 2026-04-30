@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Add support for dragging local images into the editor.
+
 ## 0.1.0
 
 - Initial release.
