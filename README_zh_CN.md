@@ -71,23 +71,6 @@ npm run build
 
 构建后会生成 `package.zip`，可用于 GitHub Release 和思源集市上架。
 
-## 上架思源集市
-
-首次上架需要：
-
-1. 将本项目推送到公开 GitHub 仓库，仓库名需与 `plugin.json` 中的 `name` 保持一致。
-2. 执行 `npm run build` 生成 `package.zip`。
-3. 在 GitHub 创建 Release，Tag 使用当前版本号，例如 `v0.1.0`，并上传 `package.zip`。
-4. Fork [siyuan-note/bazaar](https://github.com/siyuan-note/bazaar)，在 `plugins.txt` 中新增一行：
-
-```text
-aluluvip/siyuan-alioss-image-uploader
-```
-
-5. 向 `siyuan-note/bazaar` 提交 PR，等待检查和维护者合并。
-
-后续更新只需要提升版本号并发布新的 GitHub Release，集市会自动同步。
-
 ## 许可证
 
 MIT

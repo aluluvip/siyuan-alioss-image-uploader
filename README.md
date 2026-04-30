@@ -71,23 +71,6 @@ npm run build
 
 The build generates `package.zip` for GitHub Releases and SiYuan marketplace publishing.
 
-## Publishing to SiYuan Bazaar
-
-For the first release:
-
-1. Push this project to a public GitHub repository. The repository name must match `plugin.json` `name`.
-2. Run `npm run build` to generate `package.zip`.
-3. Create a GitHub Release with the current version tag, such as `v0.1.0`, and upload `package.zip`.
-4. Fork [siyuan-note/bazaar](https://github.com/siyuan-note/bazaar), then add one line to `plugins.txt`:
-
-```text
-aluluvip/siyuan-alioss-image-uploader
-```
-
-5. Open a PR to `siyuan-note/bazaar` and wait for checks and maintainer review.
-
-For later updates, bump the version and publish a new GitHub Release. The bazaar index will sync automatically.
-
 ## License
 
 MIT
