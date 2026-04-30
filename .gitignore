@@ -1,0 +1,7 @@
+node_modules/
+dist/
+index.js
+index.css
+i18n/
+package.zip
+.DS_Store
