@@ -53,8 +53,8 @@ export default class AliOssImageUploader extends Plugin {
         window.removeEventListener("drop", this.dropHandler, true);
     }
 
-    uninstall() {
-        this.removeData(STORAGE_NAME);
+    async uninstall() {
+        await this.removeData(STORAGE_NAME);
     }
 
     private buildSettingPanel() {
@@ -112,7 +112,7 @@ export default class AliOssImageUploader extends Plugin {
             return;
         }
 
-        const protyle = this.getActiveProtyle();
+        const protyle = this.getProtyleFromEventTarget(clipboardEvent.target) ?? this.getActiveProtyle();
         await this.uploadAndInsert(files, protyle, event);
     }
 
@@ -126,7 +126,7 @@ export default class AliOssImageUploader extends Plugin {
             return;
         }
 
-        const protyle = this.getProtyleFromEventTarget(dragEvent.target) ?? this.getActiveProtyle();
+        const protyle = this.getProtyleFromEventTarget(dragEvent.target);
         await this.uploadAndInsert(files, protyle, event);
     }
 
@@ -212,7 +212,7 @@ export default class AliOssImageUploader extends Plugin {
             const wysiwygElement = editor.protyle?.wysiwyg?.element;
             return activeElement && wysiwygElement?.contains(activeElement);
         });
-        return activeEditor ?? editors[0];
+        return activeEditor;
     }
 
     private getProtyleFromEventTarget(target: EventTarget | null): Protyle | undefined {

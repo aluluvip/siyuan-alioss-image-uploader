@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.3
+
+- Only handle paste and drop events that occur inside a SiYuan editor.
+- Await stored credential cleanup during full uninstall.
+
 ## 0.1.2
 
 - Fix marketplace review issues.
