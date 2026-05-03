@@ -2,7 +2,7 @@
   "name": "siyuan-alioss-image-uploader",
   "author": "sagit",
   "url": "https://github.com/aluluvip/siyuan-alioss-image-uploader",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "minAppVersion": "3.6.4",
   "backends": [
     "all"
@@ -11,7 +11,7 @@
     "desktop",
     "browser-desktop"
   ],
-  "disabledInPublish": false,
+  "disabledInPublish": true,
   "displayName": {
     "default": "Aliyun OSS Image Uploader",
     "zh_CN": "阿里云 OSS 图片上传"
@@ -23,9 +23,6 @@
   "readme": {
     "default": "README.md",
     "zh_CN": "README_zh_CN.md"
-  },
-  "funding": {
-    "custom": []
   },
   "keywords": [
     "阿里云",

@@ -53,6 +53,10 @@ export default class AliOssImageUploader extends Plugin {
         window.removeEventListener("drop", this.dropHandler, true);
     }
 
+    uninstall() {
+        this.removeData(STORAGE_NAME);
+    }
+
     private buildSettingPanel() {
         const elements: Record<keyof OssSettings, HTMLInputElement> = {
             accessKeyId: this.createInput(this.settings.accessKeyId),

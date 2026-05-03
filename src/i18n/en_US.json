@@ -1,0 +1,19 @@
+{
+  "settingsSaved": "OSS upload settings saved",
+  "uploading": "Uploading ${count} image(s) to OSS...",
+  "uploadSuccess": "Uploaded ${count} image(s) to OSS",
+  "uploadFailed": "OSS upload failed",
+  "helpTitle": "Parameter guide",
+  "helpDesc": "Open the guide if you are not sure where to find these values.",
+  "helpLink": "View guide",
+  "accessKeyId": "AccessKeyId",
+  "accessKeyIdDesc": "Use a RAM user that can only write to the target bucket.",
+  "accessKeySecret": "AccessKeySecret",
+  "accessKeySecretDesc": "Stored in local plugin data. Avoid using a root account key.",
+  "endpoint": "Endpoint",
+  "endpointDesc": "For example: oss-cn-beijing.aliyuncs.com, without https://.",
+  "bucket": "Bucket",
+  "bucketDesc": "Target OSS bucket name.",
+  "path": "Path (optional)",
+  "pathDesc": "For example: img/. Leading and trailing slashes are normalized."
+}

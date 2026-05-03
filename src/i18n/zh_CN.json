@@ -1,0 +1,19 @@
+{
+  "settingsSaved": "OSS 上传配置已保存",
+  "uploading": "正在上传 ${count} 张图片到 OSS...",
+  "uploadSuccess": "已上传 ${count} 张图片到 OSS",
+  "uploadFailed": "OSS 上传失败",
+  "helpTitle": "参数获取教程",
+  "helpDesc": "不知道这些参数在哪里找时，可以先查看教程。",
+  "helpLink": "查看教程",
+  "accessKeyId": "AccessKeyId",
+  "accessKeyIdDesc": "建议使用仅允许写入目标 Bucket 的 RAM 子账号。",
+  "accessKeySecret": "AccessKeySecret",
+  "accessKeySecretDesc": "保存在本机插件数据中，请不要使用主账号密钥。",
+  "endpoint": "Endpoint",
+  "endpointDesc": "例如 oss-cn-beijing.aliyuncs.com，可不带 https://。",
+  "bucket": "Bucket",
+  "bucketDesc": "目标 OSS Bucket 名称。",
+  "path": "Path（可选）",
+  "pathDesc": "例如 img/。插件会自动规范首尾斜杠。"
+}
