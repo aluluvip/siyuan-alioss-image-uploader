@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4
+
+- Fix settings UI state not resetting when closing settings panel without saving.
+- 修复设置面板关闭时未重置输入框状态的问题。
+
 ## 0.1.3
 
 - Only handle paste and drop events that occur inside a SiYuan editor.

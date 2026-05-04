@@ -1,6 +1,6 @@
 # 阿里云 OSS 图片上传
 
-[English](README.md) | 简体中文
+[English](https://github.com/aluluvip/siyuan-alioss-image-uploader/blob/main/README.md) | 简体中文
 
 > 自动上传粘贴到思源笔记中的图片到阿里云 OSS，并在当前位置插入远程图片链接。
 

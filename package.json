@@ -1,6 +1,6 @@
 {
   "name": "siyuan-alioss-image-uploader",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Upload pasted images in SiYuan notes to Aliyun OSS automatically.",
   "main": "index.js",
   "homepage": "https://github.com/aluluvip/siyuan-alioss-image-uploader#readme",

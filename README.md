@@ -1,6 +1,6 @@
 # Aliyun OSS Image Uploader
 
-English | [简体中文](README_zh_CN.md)
+English | [简体中文](https://github.com/aluluvip/siyuan-alioss-image-uploader/blob/main/README_zh_CN.md)
 
 > Automatically upload images pasted into SiYuan notes to Aliyun OSS and insert remote image links at the cursor.
 

@@ -67,6 +67,9 @@ export default class AliOssImageUploader extends Plugin {
         };
 
         const setting = new Setting({
+            destroyCallback: () => {
+                this.syncSettingInputs(elements);
+            },
             confirmCallback: () => {
                 this.settings = this.normalizeSettings({
                     accessKeyId: elements.accessKeyId.value.trim(),
@@ -100,6 +103,14 @@ export default class AliOssImageUploader extends Plugin {
         this.addSettingItem(setting, "path", "pathDesc", elements.path);
 
         return setting;
+    }
+
+    private syncSettingInputs(elements: Record<keyof OssSettings, HTMLInputElement>) {
+        elements.accessKeyId.value = this.settings.accessKeyId;
+        elements.accessKeySecret.value = this.settings.accessKeySecret;
+        elements.endpoint.value = this.settings.endpoint;
+        elements.bucket.value = this.settings.bucket;
+        elements.path.value = this.settings.path;
     }
 
     private async handlePaste(event: Event) {

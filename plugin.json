@@ -2,13 +2,14 @@
   "name": "siyuan-alioss-image-uploader",
   "author": "sagit",
   "url": "https://github.com/aluluvip/siyuan-alioss-image-uploader",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "minAppVersion": "3.6.4",
   "backends": [
     "all"
   ],
   "frontends": [
     "desktop",
+    "desktop-window",
     "browser-desktop"
   ],
   "disabledInPublish": true,
